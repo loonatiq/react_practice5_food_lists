@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import FoodList from "./FoodList";
+import items from "./mock.json";
 
 function App() {
+  const [sort, setSort] = useState("createdAt");
+  const sortedItems = items.sort((a, b) => b[sort] - a[sort]);
+
+  const handleNewestClick = () => setSort("createdAt");
+  const handleCalorieClick = () => setSort("calorie");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={handleNewestClick}>최신순</button>
+      <button onClick={handleCalorieClick}>칼로리순</button>
+      <FoodList items={sortedItems} />
     </div>
   );
 }
